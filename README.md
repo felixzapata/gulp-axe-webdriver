@@ -8,7 +8,7 @@ Inspired by [grunt-axe-webdriver](https://github.com/dequelabs/grunt-axe-webdriv
 
 It uses **PhantomJS** to open the remote urls. This plugin is very similar to [gulp-axe-core](https://github.com/felixzapata/gulp-axe-core). 
 
-**Sooner or later, it is possible both plugins will be merge in one which will have the capabilitie to test local and remote urls at the same time.**.
+**Sooner or later, it is possible both plugins will be merge in one which will have the capabilities to test local and remote urls at the same time.**.
 
 ## Install
 
@@ -45,7 +45,7 @@ Default value:
 }
 ```
 
-#### threshold
+### threshold
 Type: `Number`
 Default value: `0`
 
