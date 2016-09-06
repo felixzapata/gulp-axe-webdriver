@@ -45,7 +45,7 @@ Default value:
 }
 ```
 
-### threshold
+#### threshold
 Type: `Number`
 Default value: `0`
 
@@ -53,13 +53,13 @@ A number that represents the maximum number of allowable violations. Each violat
 A negative value will prevent failure whatever the number of violations.
 
 
-### saveOutputIn
+#### saveOutputIn
 Type: `String`
 Default value: ''
 
 An optional file to which the results of the accessibility scans will be written as a JSON Array of results objects.
 
-### folderOutputReport
+#### folderOutputReport
 Type: `String`
 Default value: 'aXeReports'
 
