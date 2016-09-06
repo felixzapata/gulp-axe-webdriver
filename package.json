@@ -1,0 +1,51 @@
+{
+  "name": "gulp-axe-webdriver",
+  "version": "0.1.0",
+  "description": "Gulp plugin for aXe utilizing WebDriverJS and PhantomJS",
+  "license": "MIT",
+  "repository": "felixzapata/gulp-axe-webdriver",
+  "author": {
+    "name": "Felix Zapata",
+    "email": "fzberlinches@gmail.com",
+    "url": "github.com/felixzapata"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "files": [
+    "lib/reporter.js",
+    "index.js"
+  ],
+  "keywords": [
+    "gulp",
+    "gulpplugin",
+    "a11y",
+    "unit",
+    "testing",
+    "phantomjs",
+    "aXe",
+    "accessibility"
+  ],
+  "dependencies": {
+    "axe-core": "^2.0.5",
+    "axe-webdriverjs": "^0.3.0",
+    "fs-extra": "^0.30.0",
+    "fs-path": "0.0.22",
+    "phantomjs-prebuilt": "^2.1.12",
+    "promise": "^7.1.1",
+    "selenium-webdriver": "^2.53.3"
+  },
+  "devDependencies": {
+    "conventional-changelog": "^1.1.0",
+    "eslint-plugin-html": "^1.5.2",
+    "gulp": "^3.9.1",
+    "gulp-bump": "^2.1.0",
+    "gulp-eslint": "^3.0.1",
+    "gulp-git": "^1.7.0",
+    "gulp-load-plugins": "^1.2.0",
+    "gulp-util": "^3.0.7",
+    "mocha": "^2.4.5",
+    "require-dir": "^0.3.0",
+    "run-sequence": "^1.1.5"
+  }
+}
