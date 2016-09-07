@@ -49,7 +49,7 @@ module.exports = function (customOptions, done) {
 		}
 		reporter(results, options.threshold);
 		driver.quit().then(function() {
-				done();
+			done();
 		});
 
 	};
@@ -61,7 +61,6 @@ module.exports = function (customOptions, done) {
 	};
 
 	var urls = flatten(findGlobPatterns(options.urls));
-
 
 	Promise.all(urls.map(function(url) { 
 			return new Promise(function(resolve) {
