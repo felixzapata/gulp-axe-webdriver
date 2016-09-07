@@ -13,13 +13,13 @@ function done(error) {
 }
 
 gulp.task('release:major', function (cb) {
-  runSequence('bump:major', 'changelog', 'git', done);
+  runSequence('test', 'bump:major', 'changelog', 'git', done);
 });
 
 gulp.task('release:minor', function (cb) {
-  runSequence('bump:minor', 'changelog', 'git', done);
+  runSequence('test', 'bump:minor', 'changelog', 'git', done);
 });
 
 gulp.task('release:patch', function () {
-  runSequence('bump:patch', 'changelog', 'git', done);
+  runSequence('test', 'bump:patch', 'changelog', 'git', done);
 });
