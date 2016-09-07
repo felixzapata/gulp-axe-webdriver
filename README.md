@@ -111,7 +111,7 @@ Default value: `chrome`
 Which browser to run the tests in.
 
 ### urls
-Type: `String` or `Array[String]`
+Type: `Array[String]`
 Default value: `[]`
 
 An Array of URLs that will be tested. The default value is an empty array, you must supply at least one URL in order to successfully complete this task.
