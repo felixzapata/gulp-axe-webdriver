@@ -4,7 +4,7 @@
 
 > Gulp plugin for [aXe](https://github.com/dequelabs/axe-core) utilizing WebDriverJS.
 
-Inspired by [grunt-axe-webdriver](https://github.com/dequelabs/grunt-axe-webdriver) and [gulp-axe-webdriver](https://github.com/felixzapata/gulp-axe-webdriver).
+Inspired by [grunt-axe-webdriver](https://github.com/dequelabs/grunt-axe-webdriver) and [gulp-axe-core](https://github.com/felixzapata/gulp-axe-core).
 
 This plugin checks local and remote urls.
 
