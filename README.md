@@ -110,7 +110,7 @@ Default value: `chrome`
 
 Which browser to run the tests in.
 
-### urls
+#### urls
 Type: `Array[String]`
 Default value: `[]`
 
