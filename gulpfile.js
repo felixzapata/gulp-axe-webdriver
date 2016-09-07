@@ -1,6 +1,6 @@
 /*
- * gulp-axe-core
- * https://github.com/felixzapata/gulp-axe-core
+ * gulp-axe-webdriver
+ * https://github.com/felixzapata/gulp-axe-webdriver
  *
  * Copyright (c) 2016 Felix Zapata
  * Licensed under the MIT license.
