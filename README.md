@@ -4,7 +4,7 @@
 
 > Gulp plugin for [aXe](https://github.com/dequelabs/axe-core) utilizing WebDriverJS.
 
-Inspired by [grunt-axe-webdriver](https://github.com/dequelabs/grunt-axe-webdriver) and [gulp-axe-core](https://github.com/felixzapata/gulp-axe-core).
+Inspired by [grunt-axe-webdriver](https://github.com/dequelabs/grunt-axe-webdriver) and [gulp-axe-webdriver](https://github.com/felixzapata/gulp-axe-webdriver).
 
 This plugin checks local and remote urls.
 
@@ -20,14 +20,14 @@ $ npm install --save-dev gulp-axe-webdriver
 
 ```js
 var gulp = require('gulp');
-var axeCore = require('gulp-axe-webdriver');
+var axe = require('gulp-axe-webdriver');
 
 gulp.task('axe', function(done) {
   var options = {
 			saveOutputIn: 'allHtml.json',
       urls: ['http://www.foobar-url-1/', 'http://www.foobar-url-2/']
 	};
-	return axeCore(options, done);
+	return axe(options, done);
 });
 
 ```
@@ -36,7 +36,7 @@ gulp.task('axe', function(done) {
 
 ```js
 var gulp = require('gulp');
-var axeCore = require('gulp-axe-core');
+var axe = require('gulp-axe-webdriver');
 
 gulp.task('axe', function(done) {
   var options = {
@@ -44,7 +44,7 @@ gulp.task('axe', function(done) {
 			files: ['src/file2.html']
 	};
 
-	return axeCore(options, done);
+	return axe(options, done);
 	
 });
 
@@ -54,7 +54,7 @@ gulp.task('axe', function(done) {
 
 ```js
 var gulp = require('gulp');
-var axeCore = require('gulp-axe-core');
+var axe = require('gulp-axe-webdriver');
 
 gulp.task('axe', function() {
   var options = {
@@ -62,7 +62,7 @@ gulp.task('axe', function() {
 			browser: 'phantomjs',
 			files: ['src/file2.html']
 	};
-	return axeCore(options, done);
+	return axe(options, done);
 });
 
 ```
@@ -71,7 +71,7 @@ gulp.task('axe', function() {
 
 ```js
 var gulp = require('gulp');
-var axeCore = require('gulp-axe-core');
+var axe = require('gulp-axe-webdriver');
 
 gulp.task('axe', function() {
   var options = {
@@ -79,7 +79,7 @@ gulp.task('axe', function() {
 			browser: 'phantomjs',
 			files: ['src/*.html', 'http://www.foobar-url-2/']
 	};
-	return axeCore(options, done);
+	return axe(options, done);
 });
 
 ```
@@ -135,6 +135,10 @@ Type: `String`
 Default value: 'aXeReports'
 
 An optional folder to indicate where the output will be saved.
+
+## Release History
+
+Read the [full changelog](CHANGELOG.md).
 
 ## License
 
