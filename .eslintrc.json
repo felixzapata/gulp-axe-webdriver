@@ -17,6 +17,8 @@
     "beforeEach" : false,
     "afterEach" : false,
     "module" : false,
-    "it" : false
+    "it" : false,
+    "xit": false,
+    "xdescribe": false
   }
 }
