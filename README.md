@@ -41,7 +41,7 @@ var axe = require('gulp-axe-webdriver');
 gulp.task('axe', function(done) {
   var options = {
 			saveOutputIn: 'allHtml.json',
-			files: ['src/file2.html']
+			urls: ['src/file2.html']
 	};
 
 	return axe(options, done);
@@ -60,7 +60,7 @@ gulp.task('axe', function() {
   var options = {
 			saveOutputIn: 'allHtml.json',
 			browser: 'phantomjs',
-			files: ['src/file2.html']
+			urls: ['src/file2.html']
 	};
 	return axe(options, done);
 });
@@ -77,7 +77,7 @@ gulp.task('axe', function() {
   var options = {
 			saveOutputIn: 'allHtml.json',
 			browser: 'phantomjs',
-			files: ['src/*.html', 'http://www.foobar-url-2/']
+			urls: ['src/*.html', 'http://www.foobar-url-2/']
 	};
 	return axe(options, done);
 });
