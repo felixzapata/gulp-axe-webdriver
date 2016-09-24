@@ -122,7 +122,13 @@ Can also be a glob pattern;
 Type: `String` or `Array[String]`
 Default value: `null`
 
-Which tags to filter violations on
+Which tags to filter violations on.
+
+#### include
+Type: `String`
+Default value: `null`
+
+Adds a CSS selector to the list of elements to include in analysis.
 
 #### saveOutputIn
 Type: `String`

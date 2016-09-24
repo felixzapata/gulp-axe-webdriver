@@ -70,6 +70,10 @@ module.exports = function (customOptions, done) {
 						var startTimestamp = new Date().getTime();
 						var axeBuilder = new AxeBuilder(driver);
 
+						if(options.include) {
+							axeBuilder.include(options.include);
+						}
+
 						if (tagsAreDefined) {
 							axeBuilder.withTags(options.tags);
 						}

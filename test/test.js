@@ -114,4 +114,20 @@ describe('gulp-axe-webdriver', function() {
 			});
 		});
 	});
+
+	describe('using CSS selector', function() {
+		it('should use add a CSS selector to the list of elements to include in analysis', function (done) {
+				var options = {
+					urls: [fixtures('broken.html')],
+					include: 'img',
+					browser: 'phantomjs'
+				};
+				return axe(options, function() {
+						assert.notEqual(output.match(/Found 1 accessibility violations/gi), null);
+						assert.notEqual(output.match(/(File to test|test\/fixtures\/broken.html)/gi), null);
+						done();
+				});
+		});
+	})
+
 });
