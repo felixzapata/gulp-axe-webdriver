@@ -74,6 +74,10 @@ module.exports = function (customOptions, done) {
 							axeBuilder.include(options.include);
 						}
 
+						if(options.exclude) {
+							axeBuilder.exclude(options.exclude);
+						}
+
 						if (tagsAreDefined) {
 							axeBuilder.withTags(options.tags);
 						}

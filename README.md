@@ -130,6 +130,12 @@ Default value: `null`
 
 Adds a CSS selector to the list of elements to include in analysis.
 
+#### exclude
+Type: `String`
+Default value: `null`
+
+Add a CSS selector to the list of elements to exclude from analysis.
+
 #### saveOutputIn
 Type: `String`
 Default value: ''

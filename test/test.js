@@ -128,6 +128,20 @@ describe('gulp-axe-webdriver', function() {
 						done();
 				});
 		});
+
+		it('should use add a CSS selector to the list of elements to exclude in analysis', function (done) {
+				var options = {
+					urls: [fixtures('broken.html')],
+					exclude: '#no-label',
+					browser: 'phantomjs'
+				};
+				return axe(options, function() {
+						assert.notEqual(output.match(/Found 2 accessibility violations/gi), null);
+						assert.notEqual(output.match(/(File to test|test\/fixtures\/broken.html)/gi), null);
+						done();
+				});
+		});
+
 	})
 
 });
