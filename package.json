@@ -1,6 +1,6 @@
 {
   "name": "gulp-axe-webdriver",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Gulp plugin for aXe utilizing WebDriverJS",
   "license": "MIT",
   "repository": "felixzapata/gulp-axe-webdriver",
