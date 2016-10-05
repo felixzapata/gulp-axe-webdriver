@@ -18,6 +18,7 @@ module.exports = function (customOptions, done) {
 	var defaultOptions = {
 		folderOutputReport: 'aXeReports',
 		browser: 'chrome',
+		showOnlyViolations: false,
 		saveOutputIn: '',
 		tags: null,
 		urls: [],
@@ -43,6 +44,14 @@ module.exports = function (customOptions, done) {
 	var createResults = function(results) {
 
 		var dest = '';
+		if(options.showOnlyViolations) {
+			results = results.map(function(item) {
+				delete item.passes;
+				return item;
+			}).filter(function(item) {
+				return item.violations.length > 0;
+			}); 
+		}
 		if(options.saveOutputIn !== '') {
 			dest = path.join(options.folderOutputReport, options.saveOutputIn);
 			fs.writeFileSync(dest, JSON.stringify(results, null, '  '));

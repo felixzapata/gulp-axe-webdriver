@@ -144,4 +144,25 @@ describe('gulp-axe-webdriver', function() {
 
 	})
 
+	describe('using showOnlyViolations', function() {
+		it('should only returns the violations', function(done) {
+			var options = {
+				urls: [fixtures('broken.html', 'working.html')],
+				saveOutputIn: 'allHtml.json',
+				showOnlyViolations: true,
+				folderOutputReport: path.join(__dirname, 'temp'),
+				browser: 'phantomjs'
+			};
+			var expected = path.join(__dirname, 'temp', 'allHtml.json');
+			var results;
+			return axe(options, function() {
+				results = JSON.parse(fs.readFileSync(expected, 'utf8'));
+				assert.equal(results.length, 1);
+				assert.equal(results[0].passes, null);
+				assert.notEqual(results[0].violations, null);
+				done();
+			});
+		});
+	});
+
 });
