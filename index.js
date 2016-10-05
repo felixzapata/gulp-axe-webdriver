@@ -7,6 +7,7 @@ var WebDriver = require('selenium-webdriver');
 var Promise = require('promise');
 var fileUrl = require('file-url');
 var reporter = require('./lib/reporter');
+var chalk = require('chalk');
 require('chromedriver');
 
 //setup custom phantomJS capability
@@ -19,6 +20,7 @@ module.exports = function (customOptions, done) {
 		folderOutputReport: 'aXeReports',
 		browser: 'chrome',
 		showOnlyViolations: false,
+		verbose: false,
 		saveOutputIn: '',
 		tags: null,
 		urls: [],
@@ -56,6 +58,10 @@ module.exports = function (customOptions, done) {
 			dest = path.join(options.folderOutputReport, options.saveOutputIn);
 			fs.writeFileSync(dest, JSON.stringify(results, null, '  '));
 		}
+		if(options.verbose) {
+			console.log(chalk.yellow('Preparing results'));
+			console.log(chalk.yellow('================='));
+		}
 		reporter(results, options.threshold);
 		driver.quit().then(function() {
 			done();
@@ -71,11 +77,18 @@ module.exports = function (customOptions, done) {
 
 	var urls = flatten(findGlobPatterns(options.urls));
 
+	if(options.verbose) {
+		console.log(chalk.yellow('Start reading the urls'));
+		console.log(chalk.yellow('======================'));
+	}
 	Promise.all(urls.map(function(url) { 
 			return new Promise(function(resolve) {
 				driver
 					.get(getUrl(url))
 					.then(function() {
+						if(options.verbose) {
+							console.log(chalk.cyan('Analysis start for: ') + url);
+						}
 						var startTimestamp = new Date().getTime();
 						var axeBuilder = new AxeBuilder(driver);
 
@@ -95,6 +108,9 @@ module.exports = function (customOptions, done) {
 							results.url = url;
 							results.timestamp = new Date().getTime();
 							results.time = results.timestamp - startTimestamp;
+							if(options.verbose) {
+								console.log(chalk.cyan('Analyisis finished for: ') + url);
+							}
 							resolve(results);
 						});
 					});

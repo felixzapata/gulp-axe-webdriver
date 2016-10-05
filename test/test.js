@@ -51,14 +51,14 @@ describe('gulp-axe-webdriver', function() {
 
 
 		it('should not pass the a11y validation', function (done) {
-				var options = {
-					urls: [fixtures('broken.html')]
-				};
-				return axe(options, function() {
-						assert.notEqual(output.match(/Found 3 accessibility violations/gi), null);
-						assert.notEqual(output.match(/(File to test|test\/fixtures\/broken.html)/gi), null);
-						done();
-				});
+			var options = {
+				urls: [fixtures('broken.html')]
+			};
+			return axe(options, function() {
+				assert.notEqual(output.match(/Found 3 accessibility violations/gi), null);
+				assert.notEqual(output.match(/(File to test|test\/fixtures\/broken.html)/gi), null);
+				done();
+			});
 		});
 
 		it('should create JSON file with the results', function (done) {
@@ -77,28 +77,28 @@ describe('gulp-axe-webdriver', function() {
 
 	describe('using PhantomJS', function() {
 		it('should pass the a11y validation', function (done) {
-				var options = {
-					urls: [fixtures('working.html')],
-					browser: 'phantomjs'
-				};
-				return axe(options, function() {
-						assert.notEqual(output.match(/Found no accessibility violations./gi), null);
-						assert.notEqual(output.match(/(File to test|test\/fixtures\/working.html)/gi), null);
-						done();
-				});
+			var options = {
+				urls: [fixtures('working.html')],
+				browser: 'phantomjs'
+			};
+			return axe(options, function() {
+				assert.notEqual(output.match(/Found no accessibility violations./gi), null);
+				assert.notEqual(output.match(/(File to test|test\/fixtures\/working.html)/gi), null);
+				done();
+			});
 		});
 
 
 		it('should not pass the a11y validation', function (done) {
-				var options = {
-					urls: [fixtures('broken.html')],
-					browser: 'phantomjs'
-				};
-				return axe(options, function() {
-					assert.notEqual(output.match(/Found 3 accessibility violations/gi), null);
-					assert.notEqual(output.match(/(File to test|test\/fixtures\/broken.html)/gi), null);
-					done();
-				});
+			var options = {
+				urls: [fixtures('broken.html')],
+				browser: 'phantomjs'
+			};
+			return axe(options, function() {
+				assert.notEqual(output.match(/Found 3 accessibility violations/gi), null);
+				assert.notEqual(output.match(/(File to test|test\/fixtures\/broken.html)/gi), null);
+				done();
+			});
 		});
 		it('should create JSON file with the results', function (done) {
 			var options = {
@@ -117,34 +117,34 @@ describe('gulp-axe-webdriver', function() {
 
 	describe('using CSS selector', function() {
 		it('should use add a CSS selector to the list of elements to include in analysis', function (done) {
-				var options = {
-					urls: [fixtures('broken.html')],
-					include: 'img',
-					browser: 'phantomjs'
-				};
-				return axe(options, function() {
-						assert.notEqual(output.match(/Found 1 accessibility violations/gi), null);
-						assert.notEqual(output.match(/(File to test|test\/fixtures\/broken.html)/gi), null);
-						done();
-				});
+			var options = {
+				urls: [fixtures('broken.html')],
+				include: 'img',
+				browser: 'phantomjs'
+			};
+			return axe(options, function() {
+				assert.notEqual(output.match(/Found 1 accessibility violations/gi), null);
+				assert.notEqual(output.match(/(File to test|test\/fixtures\/broken.html)/gi), null);
+				done();
+			});
 		});
 
 		it('should use add a CSS selector to the list of elements to exclude in analysis', function (done) {
-				var options = {
-					urls: [fixtures('broken.html')],
-					exclude: '#no-label',
-					browser: 'phantomjs'
-				};
-				return axe(options, function() {
-						assert.notEqual(output.match(/Found 2 accessibility violations/gi), null);
-						assert.notEqual(output.match(/(File to test|test\/fixtures\/broken.html)/gi), null);
-						done();
-				});
+			var options = {
+				urls: [fixtures('broken.html')],
+				exclude: '#no-label',
+				browser: 'phantomjs'
+			};
+			return axe(options, function() {
+				assert.notEqual(output.match(/Found 2 accessibility violations/gi), null);
+				assert.notEqual(output.match(/(File to test|test\/fixtures\/broken.html)/gi), null);
+				done();
+			});
 		});
 
 	})
 
-	describe('using showOnlyViolations', function() {
+	describe('using showOnlyViolations option', function() {
 		it('should only returns the violations', function(done) {
 			var options = {
 				urls: [fixtures('broken.html', 'working.html')],
@@ -160,6 +160,22 @@ describe('gulp-axe-webdriver', function() {
 				assert.equal(results.length, 1);
 				assert.equal(results[0].passes, null);
 				assert.notEqual(results[0].violations, null);
+				done();
+			});
+		});
+	});
+	describe('using verbose option', function() {
+		it('should show information messages about the analysis', function(done) {
+			var options = {
+				urls: [fixtures('working.html')],
+				verbose: true,
+				browser: 'phantomjs'
+			};
+			return axe(options, function() {
+				assert.notEqual(output.match(/Preparing results/gi), null);
+				assert.notEqual(output.match(/Start reading the urls/gi), null);
+				assert.notEqual(output.match(/Analysis start for: /gi), null);
+				assert.notEqual(output.match(/Analyisis finished for: /gi), null);
 				done();
 			});
 		});
