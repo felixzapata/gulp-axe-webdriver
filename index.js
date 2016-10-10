@@ -52,7 +52,7 @@ module.exports = function (customOptions, done) {
 				return item;
 			}).filter(function(item) {
 				return item.violations.length > 0;
-			}); 
+			});
 		}
 		if(options.saveOutputIn !== '') {
 			dest = path.join(options.folderOutputReport, options.saveOutputIn);
@@ -81,7 +81,7 @@ module.exports = function (customOptions, done) {
 		console.log(chalk.yellow('Start reading the urls'));
 		console.log(chalk.yellow('======================'));
 	}
-	Promise.all(urls.map(function(url) { 
+	Promise.all(urls.map(function(url) {
 			return new Promise(function(resolve) {
 				driver
 					.get(getUrl(url))
@@ -102,6 +102,10 @@ module.exports = function (customOptions, done) {
 
 						if (tagsAreDefined) {
 							axeBuilder.withTags(options.tags);
+						}
+
+						if(options.a11yCheckOptions) {
+							axeBuilder.options(options.a11yCheckOptions);
 						}
 
 						axeBuilder.analyze(function(results) {
