@@ -1,3 +1,15 @@
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/felixzapata/gulp-axe-webdriver/compare/1.1.0...v1.2.0) (2016-10-10)
+
+
+### Features
+
+* **a11yCheckOptions:** add attribute a11yCheckOptions to override options ([5244f05](https://github.com/felixzapata/gulp-axe-webdriver/commit/5244f05))
+* **onlyViolations:** add option to return only the violations ([14b7cc5](https://github.com/felixzapata/gulp-axe-webdriver/commit/14b7cc5))
+* **verbose:** add verbose option to show information messages about the analysis ([861f076](https://github.com/felixzapata/gulp-axe-webdriver/commit/861f076))
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/felixzapata/gulp-axe-webdriver/compare/1.0.0...v1.1.0) (2016-09-25)
 
