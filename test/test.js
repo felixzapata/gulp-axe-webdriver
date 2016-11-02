@@ -9,11 +9,11 @@ require('mocha');
 var fixtures = function (glob) { return path.join(__dirname, './fixtures', glob); }
 
 function fileExists(filePath) {
-  try {
-    return fs.statSync(filePath).isFile();
-  } catch (err) {
-    return false;
-  }
+	try {
+		return fs.statSync(filePath).isFile();
+	} catch (err) {
+		return false;
+	}
 }
 
 describe('gulp-axe-webdriver', function () {
@@ -23,17 +23,17 @@ describe('gulp-axe-webdriver', function () {
 	this.timeout(30000);
 
 	beforeEach(function (done) {
-    var folder = path.join(__dirname, 'temp');
+		var folder = path.join(__dirname, 'temp');
 		output = '';
-    process.stdout.write = function (str) {
-      output += str;
-    };
-    fs.remove(folder, done);
+		process.stdout.write = function (str) {
+			output += str;
+		};
+		fs.remove(folder, done);
 	});
 
 	afterEach(function () {
-    process.stdout.write = write;
-  });
+		process.stdout.write = write;
+	});
 
 	describe('using Chrome', function () {
 
