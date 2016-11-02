@@ -8,6 +8,7 @@ var Promise = require('promise');
 var fileUrl = require('file-url');
 var reporter = require('./lib/reporter');
 var chalk = require('chalk');
+var request = require('request');
 require('chromedriver');
 
 //setup custom phantomJS capability
@@ -77,48 +78,76 @@ module.exports = function (customOptions, done) {
 
 	var urls = flatten(findGlobPatterns(options.urls));
 
+	var fileExists = function(filePath) {
+		try {
+			return fs.statSync(filePath).isFile();
+		} catch (e) {
+			return false;
+		}
+	}
+
 	if (options.verbose) {
 		console.log(chalk.yellow('Start reading the urls'));
 		console.log(chalk.yellow('======================'));
 	}
 	Promise.all(urls.map(function (url) {
 		return new Promise(function (resolve) {
-			driver
-				.get(getUrl(url))
-				.then(function () {
-					if (options.verbose) {
-						console.log(chalk.cyan('Analysis start for: ') + url);
-					}
-					var startTimestamp = new Date().getTime();
-					var axeBuilder = new AxeBuilder(driver);
 
-					if (options.include) {
-						axeBuilder.include(options.include);
-					}
-
-					if (options.exclude) {
-						axeBuilder.exclude(options.exclude);
-					}
-
-					if (tagsAreDefined) {
-						axeBuilder.withTags(options.tags);
-					}
-
-					if (options.a11yCheckOptions) {
-						axeBuilder.options(options.a11yCheckOptions);
-					}
-
-					axeBuilder.analyze(function (results) {
-						results.url = url;
-						results.timestamp = new Date().getTime();
-						results.time = results.timestamp - startTimestamp;
+			var useDriver = function () {
+				driver
+					.get(getUrl(url))
+					.then(function () {
 						if (options.verbose) {
-							console.log(chalk.cyan('Analyisis finished for: ') + url);
+							console.log(chalk.cyan('Analysis start for: ') + url);
 						}
-						resolve(results);
+						var startTimestamp = new Date().getTime();
+						var axeBuilder = new AxeBuilder(driver);
+
+						if (options.include) {
+							axeBuilder.include(options.include);
+						}
+
+						if (options.exclude) {
+							axeBuilder.exclude(options.exclude);
+						}
+
+						if (tagsAreDefined) {
+							axeBuilder.withTags(options.tags);
+						}
+
+						if (options.a11yCheckOptions) {
+							axeBuilder.options(options.a11yCheckOptions);
+						}
+
+						axeBuilder.analyze(function (results) {
+							results.url = url;
+							results.status = 200;
+							results.timestamp = new Date().getTime();
+							results.time = results.timestamp - startTimestamp;
+							if (options.verbose) {
+								console.log(chalk.cyan('Analyisis finished for: ') + url);
+							}
+							resolve(results);
+						});
 					});
+			}
+
+			var resourceNotValid = function () {
+				console.log(chalk.red('Error loading source: ') + url);
+				resolve({
+					url: url,
+					status: 404,
+					violations: [],
+					timestamp: new Date().getTime()
 				});
+			}
+
+			request.get(url)
+				.on('error', resourceNotValid)
+				.on('response', useDriver)
+				.end();
 		});
+
 		})).then(createResults);
 
 };
