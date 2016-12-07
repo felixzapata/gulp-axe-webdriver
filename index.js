@@ -65,6 +65,15 @@ module.exports = function (customOptions, done) {
 		}
 	};
 
+	var onlyViolations = function(item) {
+		return item.violations.length > 0;
+	};
+
+	var removePassesValues = function(item) {
+		delete item.passes;
+		return item;
+	}
+
 	var createResults = function (results) {
 		var dest = '';
 		var localUrls = results.filter(getLocalUrls);
@@ -76,12 +85,7 @@ module.exports = function (customOptions, done) {
 				return coll;
 			}, results);
 			if (options.showOnlyViolations) {
-				results = results.map(function (item) {
-					delete item.passes;
-					return item;
-				}).filter(function (item) {
-					return item.violations.length > 0;
-				});
+				results = results.map(removePassesValues).filter(onlyViolations);
 			}
 			if (options.saveOutputIn !== '') {
 				dest = path.join(options.folderOutputReport, options.saveOutputIn);
