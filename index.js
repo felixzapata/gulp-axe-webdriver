@@ -65,42 +65,44 @@ module.exports = function (customOptions, done) {
 		}
 	};
 
-	var onlyViolations = function(item) {
+	var onlyViolations = function (item) {
 		return item.violations.length > 0;
 	};
 
-	var removePassesValues = function(item) {
+	var removePassesValues = function (item) {
 		delete item.passes;
 		return item;
-	}
+	};
+
+	var mergeArray = function (coll, item) {
+		coll.push(item);
+		return coll;
+	};
 
 	var createResults = function (results) {
 		var dest = '';
 		var localUrls = results.filter(getLocalUrls);
 		var remoteUrls = results.filter(getRemoteUrls);
 		var promises = remoteUrls.map(checkNotValidUrls);
+		var resultsForReporter;
 		Promise.all(promises).then(function (results) {
-			results = localUrls.reduce(function (coll, item) {
-				coll.push(item);
-				return coll;
-			}, results);
+			resultsForReporter = localUrls.reduce(mergeArray, results);
 			if (options.showOnlyViolations) {
-				results = results.map(removePassesValues).filter(onlyViolations);
+				resultsForReporter = resultsForReporter.map(removePassesValues).filter(onlyViolations);
 			}
 			if (options.saveOutputIn !== '') {
 				dest = path.join(options.folderOutputReport, options.saveOutputIn);
-				fs.writeFileSync(dest, JSON.stringify(results, null, '  '));
+				fs.writeFileSync(dest, JSON.stringify(resultsForReporter, null, '  '));
 			}
 			if (options.verbose) {
 				console.log(chalk.yellow('Preparing results'));
 				console.log(chalk.yellow('================='));
 			}
-			reporter(results, options.threshold);
+			reporter(resultsForReporter, options.threshold);
 			driver.quit().then(function () {
 				done();
 			});
 		});
-
 	};
 
 	var findGlobPatterns = function (urls) {
