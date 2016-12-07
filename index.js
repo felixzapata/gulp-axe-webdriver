@@ -8,7 +8,7 @@ var Promise = require('promise');
 var fileUrl = require('file-url');
 var reporter = require('./lib/reporter');
 var chalk = require('chalk');
-var request = require('request');
+var request = require('then-request');
 require('chromedriver');
 
 //setup custom phantomJS capability
@@ -44,28 +44,63 @@ module.exports = function (customOptions, done) {
 		return isRemoteUrl(url) ? url : fileUrl(url);
 	}
 
-	var createResults = function (results) {
-
-		var dest = '';
-		if (options.showOnlyViolations) {
-			results = results.map(function (item) {
-				delete item.passes;
-				return item;
-			}).filter(function (item) {
-				return item.violations.length > 0;
+	var checkNotValidUrls = function (result) {
+		return new Promise(function (resolve) {
+			request('GET', result.url, function (error, response) {
+				if (error) {
+					result.status = 404;
+				} else {
+					result.status = 200;
+				}
+				resolve(result);
 			});
+		});
+	}
+
+	var getRemoteUrls = function (result) {
+		if (isRemoteUrl(result.url)) {
+			return result;
 		}
-		if (options.saveOutputIn !== '') {
-			dest = path.join(options.folderOutputReport, options.saveOutputIn);
-			fs.writeFileSync(dest, JSON.stringify(results, null, '  '));
+	};
+
+	var getLocalUrls = function (result) {
+		if (!isRemoteUrl(result.url)) {
+			return result;
 		}
-		if (options.verbose) {
-			console.log(chalk.yellow('Preparing results'));
-			console.log(chalk.yellow('================='));
-		}
-		reporter(results, options.threshold);
-		driver.quit().then(function () {
-			done();
+	};
+
+	var createResults = function (results) {
+		var dest = '';
+		var localUrls = results.filter(getLocalUrls);
+		var remoteUrls = results.filter(getRemoteUrls);
+		var promises = remoteUrls.map(function (result) {
+			return checkNotValidUrls(result);
+		});
+		Promise.all(promises).then(function (results) {
+			results = localUrls.reduce(function (coll, item) {
+				coll.push(item);
+				return coll;
+			}, results);
+			if (options.showOnlyViolations) {
+				results = results.map(function (item) {
+					delete item.passes;
+					return item;
+				}).filter(function (item) {
+					return item.violations.length > 0;
+				});
+			}
+			if (options.saveOutputIn !== '') {
+				dest = path.join(options.folderOutputReport, options.saveOutputIn);
+				fs.writeFileSync(dest, JSON.stringify(results, null, '  '));
+			}
+			if (options.verbose) {
+				console.log(chalk.yellow('Preparing results'));
+				console.log(chalk.yellow('================='));
+			}
+			reporter(results, options.threshold);
+			driver.quit().then(function () {
+				done();
+			});
 		});
 
 	};
@@ -78,7 +113,7 @@ module.exports = function (customOptions, done) {
 
 	var urls = flatten(findGlobPatterns(options.urls));
 
-	var fileExists = function(filePath) {
+	var fileExists = function (filePath) {
 		try {
 			return fs.statSync(filePath).isFile();
 		} catch (e) {
@@ -92,62 +127,43 @@ module.exports = function (customOptions, done) {
 	}
 	Promise.all(urls.map(function (url) {
 		return new Promise(function (resolve) {
+			driver
+				.get(getUrl(url))
+				.then(function () {
+					if (options.verbose) {
+						console.log(chalk.cyan('Analysis start for: ') + url);
+					}
+					var startTimestamp = new Date().getTime();
+					var axeBuilder = new AxeBuilder(driver);
 
-			var useDriver = function () {
-				driver
-					.get(getUrl(url))
-					.then(function () {
+					if (options.include) {
+						axeBuilder.include(options.include);
+					}
+
+					if (options.exclude) {
+						axeBuilder.exclude(options.exclude);
+					}
+
+					if (tagsAreDefined) {
+						axeBuilder.withTags(options.tags);
+					}
+
+					if (options.a11yCheckOptions) {
+						axeBuilder.options(options.a11yCheckOptions);
+					}
+
+					axeBuilder.analyze(function (results) {
+						results.url = url;
+						results.timestamp = new Date().getTime();
+						results.time = results.timestamp - startTimestamp;
 						if (options.verbose) {
-							console.log(chalk.cyan('Analysis start for: ') + url);
+							console.log(chalk.cyan('Analyisis finished for: ') + url);
 						}
-						var startTimestamp = new Date().getTime();
-						var axeBuilder = new AxeBuilder(driver);
-
-						if (options.include) {
-							axeBuilder.include(options.include);
-						}
-
-						if (options.exclude) {
-							axeBuilder.exclude(options.exclude);
-						}
-
-						if (tagsAreDefined) {
-							axeBuilder.withTags(options.tags);
-						}
-
-						if (options.a11yCheckOptions) {
-							axeBuilder.options(options.a11yCheckOptions);
-						}
-
-						axeBuilder.analyze(function (results) {
-							results.url = url;
-							results.status = 200;
-							results.timestamp = new Date().getTime();
-							results.time = results.timestamp - startTimestamp;
-							if (options.verbose) {
-								console.log(chalk.cyan('Analyisis finished for: ') + url);
-							}
-							resolve(results);
-						});
+						resolve(results);
 					});
-			}
-
-			var resourceNotValid = function () {
-				console.log(chalk.red('Error loading source: ') + url);
-				resolve({
-					url: url,
-					status: 404,
-					violations: [],
-					timestamp: new Date().getTime()
 				});
-			}
-
-			request.get(url)
-				.on('error', resourceNotValid)
-				.on('response', useDriver)
-				.end();
 		});
 
-		})).then(createResults);
+	})).then(createResults);
 
 };
