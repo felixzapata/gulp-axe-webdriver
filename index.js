@@ -47,11 +47,7 @@ module.exports = function (customOptions, done) {
 	var checkNotValidUrls = function (result) {
 		return new Promise(function (resolve) {
 			request('GET', result.url, function (error, response) {
-				if (error) {
-					result.status = 404;
-				} else {
-					result.status = 200;
-				}
+				result.status = (error) ? 404 : 200;
 				resolve(result);
 			});
 		});
@@ -73,9 +69,7 @@ module.exports = function (customOptions, done) {
 		var dest = '';
 		var localUrls = results.filter(getLocalUrls);
 		var remoteUrls = results.filter(getRemoteUrls);
-		var promises = remoteUrls.map(function (result) {
-			return checkNotValidUrls(result);
-		});
+		var promises = remoteUrls.map(checkNotValidUrls);
 		Promise.all(promises).then(function (results) {
 			results = localUrls.reduce(function (coll, item) {
 				coll.push(item);
