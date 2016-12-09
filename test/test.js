@@ -35,7 +35,7 @@ describe('gulp-axe-webdriver', function () {
 		process.stdout.write = write;
 	});
 
-	xdescribe('using Chrome', function () {
+	describe('using Chrome', function () {
 
 		it('should pass the a11y validation', function (done) {
 			var options = {
@@ -208,7 +208,8 @@ describe('gulp-axe-webdriver', function () {
 				browser: 'phantomjs'
 			};
 			return axe(options, function () {
-				assert.notEqual(output.match(/The resource http:\/\/www.estaurlnoexiste.com\/ is not valid/gi), null);
+				assert.notEqual(output.match(/File to test: http:\/\/www.estaurlnoexiste.com\//gi), null);
+				assert.notEqual(output.match(/URL not valid for analysis/gi), null);
 				done();
 			});
 		});
