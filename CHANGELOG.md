@@ -1,3 +1,13 @@
+<a name="1.3.1"></a>
+## [1.3.1](https://github.com/felixzapata/gulp-axe-webdriver/compare/1.3.0...v1.3.1) (2016-12-09)
+
+
+### Bug Fixes
+
+* **index.js:** modify drivers and capabilities to check complex urls in Chrome and PhantomJS ([71df07f](https://github.com/felixzapata/gulp-axe-webdriver/commit/71df07f))
+
+
+
 <a name="1.3.0"></a>
 # [1.3.0](https://github.com/felixzapata/gulp-axe-webdriver/compare/1.2.0...v1.3.0) (2016-12-09)
 
