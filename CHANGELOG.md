@@ -1,3 +1,17 @@
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/felixzapata/gulp-axe-webdriver/compare/1.2.0...v1.3.0) (2016-12-09)
+
+
+### Features
+
+* **404:** create first approach to check only valid urls ([3035949](https://github.com/felixzapata/gulp-axe-webdriver/commit/3035949))
+* **index.js:** filter local and non local urls to review the status ([dd2e25d](https://github.com/felixzapata/gulp-axe-webdriver/commit/dd2e25d))
+* **package.json:** update axe-core to 2.0.7 ([29a3bcc](https://github.com/felixzapata/gulp-axe-webdriver/commit/29a3bcc))
+* **package.json:** update axe-webdriverjs to 0.4.0 ([8eb21a2](https://github.com/felixzapata/gulp-axe-webdriver/commit/8eb21a2))
+* **reporter.js:** show message when the URL is not valid ([d0be5f6](https://github.com/felixzapata/gulp-axe-webdriver/commit/d0be5f6))
+
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/felixzapata/gulp-axe-webdriver/compare/1.1.0...v1.2.0) (2016-10-10)
 
