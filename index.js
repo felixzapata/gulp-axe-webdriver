@@ -46,7 +46,7 @@ module.exports = function (customOptions, done) {
 
 	var checkNotValidUrls = function (result) {
 		return new Promise(function (resolve) {
-			request('GET', result.url, function (error, response) {
+			request('GET', result.url, function (error) {
 				result.status = (error) ? 404 : 200;
 				resolve(result);
 			});
@@ -112,14 +112,6 @@ module.exports = function (customOptions, done) {
 	};
 
 	var urls = flatten(findGlobPatterns(options.urls));
-
-	var fileExists = function (filePath) {
-		try {
-			return fs.statSync(filePath).isFile();
-		} catch (e) {
-			return false;
-		}
-	}
 
 	if (options.verbose) {
 		console.log(chalk.yellow('Start reading the urls'));
