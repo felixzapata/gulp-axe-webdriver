@@ -13,7 +13,7 @@ require('chromedriver');
 
 //setup custom phantomJS capability
 var phantomjs_exe = require('phantomjs-prebuilt').path;
-var customPhantom = WebDriver.Capabilities.phantomjs().set('phantomjs.binary.path', phantomjs_exe);
+var customPhantom = WebDriver.Capabilities.phantomjs();
 
 module.exports = function (customOptions, done) {
 
@@ -29,7 +29,18 @@ module.exports = function (customOptions, done) {
 	};
 
 	var options = customOptions ? Object.assign(defaultOptions, customOptions) : defaultOptions;
-	var driver = options.browser === 'phantomjs' ? new WebDriver.Builder().withCapabilities(customPhantom).build() : new WebDriver.Builder().forBrowser(options.browser).build();
+
+	var driver;
+
+	if(options.browser === 'phantomjs') {
+		customPhantom.set('phantomjs.binary.path', phantomjs_exe);
+		customPhantom.set('phantomjs.settings.webSecurityEnabled', false);
+		driver = new WebDriver.Builder().withCapabilities(customPhantom).build();
+	} else {
+		driver = new WebDriver.Builder().forBrowser(options.browser).build();
+		driver.manage().timeouts().setScriptTimeout(500);
+	}
+
 	var tagsAreDefined = (!Array.isArray(options.tags) && options.tags !== null && options.tags !== '') || (Array.isArray(options.tags) && options.tags.length > 0);
 
 	var isRemoteUrl = function (url) {
