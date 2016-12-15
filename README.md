@@ -24,12 +24,11 @@ var axe = require('gulp-axe-webdriver');
 
 gulp.task('axe', function(done) {
   var options = {
-			saveOutputIn: 'allHtml.json',
-      urls: ['http://www.foobar-url-1/', 'http://www.foobar-url-2/']
-	};
-	return axe(options, done);
+    saveOutputIn: 'allHtml.json',
+    urls: ['http://www.foobar-url-1/', 'http://www.foobar-url-2/']
+  };
+  return axe(options, done);
 });
-
 ```
 
 #### With Chrome (default)
@@ -40,14 +39,11 @@ var axe = require('gulp-axe-webdriver');
 
 gulp.task('axe', function(done) {
   var options = {
-			saveOutputIn: 'allHtml.json',
-			urls: ['src/file2.html']
-	};
-
-	return axe(options, done);
-	
+    saveOutputIn: 'allHtml.json',
+    urls: ['src/file2.html']
+  };
+  return axe(options, done);	
 });
-
 ```
 
 #### With PhantomJS
@@ -58,13 +54,12 @@ var axe = require('gulp-axe-webdriver');
 
 gulp.task('axe', function() {
   var options = {
-			saveOutputIn: 'allHtml.json',
-			browser: 'phantomjs',
-			urls: ['src/file2.html']
-	};
-	return axe(options, done);
+    saveOutputIn: 'allHtml.json',
+    browser: 'phantomjs',
+    urls: ['src/file2.html']
+  };
+  return axe(options, done);
 });
-
 ```
 
 #### With Glob patterns
@@ -75,26 +70,25 @@ var axe = require('gulp-axe-webdriver');
 
 gulp.task('axe', function() {
   var options = {
-			saveOutputIn: 'allHtml.json',
-			browser: 'phantomjs',
-			urls: ['src/*.html', 'http://www.foobar-url-2/']
-	};
-	return axe(options, done);
+    saveOutputIn: 'allHtml.json',
+    browser: 'phantomjs',
+    urls: ['src/*.html', 'http://www.foobar-url-2/']
+  };
+  return axe(options, done);
 });
-
 ```
 
 ### Options
 Type: `Object`
 
 Default value:
-```
+```js
 {
   threshold: 0,
-	browser: 'chrome',
-	folderOutputReport: 'aXeReports',
-	saveOutputIn: '',
-	tags: null
+  browser: 'chrome',
+  folderOutputReport: 'aXeReports',
+  saveOutputIn: '',
+  tags: null
 }
 ```
 
