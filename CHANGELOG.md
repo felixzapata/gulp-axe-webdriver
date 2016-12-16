@@ -1,3 +1,13 @@
+<a name="1.3.2"></a>
+## [1.3.2](https://github.com/felixzapata/gulp-axe-webdriver/compare/1.3.1...v1.3.2) (2016-12-16)
+
+
+### Bug Fixes
+
+* **package.json:** set chromedriver to version 2.25.1 to avoid problems behind a proxy ([e99840e](https://github.com/felixzapata/gulp-axe-webdriver/commit/e99840e))
+
+
+
 <a name="1.3.1"></a>
 ## [1.3.1](https://github.com/felixzapata/gulp-axe-webdriver/compare/1.3.0...v1.3.1) (2016-12-09)
 
