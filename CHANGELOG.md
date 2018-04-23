@@ -1,3 +1,13 @@
+<a name="1.4.1"></a>
+## [1.4.1](https://github.com/felixzapata/gulp-axe-webdriver/compare/1.4.0...1.4.1) (2018-04-23)
+
+
+### Features
+
+* **package.json:** update chromedriver to 2.38.0 ([958233b](https://github.com/felixzapata/gulp-axe-webdriver/commit/958233b))
+
+
+
 <a name="1.4.0"></a>
 # [1.4.0](https://github.com/felixzapata/gulp-axe-webdriver/compare/1.3.2...v1.4.0) (2016-12-27)
 
