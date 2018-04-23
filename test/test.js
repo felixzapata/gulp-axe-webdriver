@@ -73,54 +73,13 @@ describe('gulp-axe-webdriver', function () {
 				done();
 			});
 		});
-	})
-
-	describe('using PhantomJS', function () {
-		it('should pass the a11y validation', function (done) {
-			var options = {
-				urls: [fixtures('working.html')],
-				browser: 'phantomjs'
-			};
-			return axe(options, function () {
-				assert.notEqual(output.match(/Found no accessibility violations./gi), null);
-				assert.notEqual(output.match(/(File to test|test\/fixtures\/working.html)/gi), null);
-				done();
-			});
-		});
-
-
-		it('should not pass the a11y validation', function (done) {
-			var options = {
-				urls: [fixtures('broken.html')],
-				browser: 'phantomjs'
-			};
-			return axe(options, function () {
-				assert.notEqual(output.match(/Found 3 accessibility violations/gi), null);
-				assert.notEqual(output.match(/(File to test|test\/fixtures\/broken.html)/gi), null);
-				done();
-			});
-		});
-		it('should create JSON file with the results', function (done) {
-			var options = {
-				urls: [fixtures('broken.html')],
-				saveOutputIn: 'allHtml.json',
-				folderOutputReport: path.join(__dirname, 'temp'),
-				browser: 'phantomjs'
-			};
-			var expected = path.join(__dirname, 'temp', 'allHtml.json');
-			return axe(options, function () {
-				assert(fileExists(expected), true);
-				done();
-			});
-		});
 	});
 
 	describe('using CSS selector', function () {
 		it('should use add a CSS selector to the list of elements to include in analysis', function (done) {
 			var options = {
 				urls: [fixtures('broken.html')],
-				include: 'img',
-				browser: 'phantomjs'
+				include: 'img'
 			};
 			return axe(options, function () {
 				assert.notEqual(output.match(/Found 1 accessibility violations/gi), null);
@@ -132,8 +91,7 @@ describe('gulp-axe-webdriver', function () {
 		it('should use add a CSS selector to the list of elements to exclude in analysis', function (done) {
 			var options = {
 				urls: [fixtures('broken.html')],
-				exclude: '#no-label',
-				browser: 'phantomjs'
+				exclude: '#no-label'
 			};
 			return axe(options, function () {
 				assert.notEqual(output.match(/Found 2 accessibility violations/gi), null);
@@ -150,8 +108,7 @@ describe('gulp-axe-webdriver', function () {
 				urls: [fixtures('broken.html', 'working.html')],
 				saveOutputIn: 'allHtml.json',
 				showOnlyViolations: true,
-				folderOutputReport: path.join(__dirname, 'temp'),
-				browser: 'phantomjs'
+				folderOutputReport: path.join(__dirname, 'temp')
 			};
 			var expected = path.join(__dirname, 'temp', 'allHtml.json');
 			var results;
@@ -169,8 +126,7 @@ describe('gulp-axe-webdriver', function () {
 		it('should show information messages about the analysis', function (done) {
 			var options = {
 				urls: [fixtures('working.html')],
-				verbose: true,
-				browser: 'phantomjs'
+				verbose: true
 			};
 			return axe(options, function () {
 				assert.notEqual(output.match(/Preparing results/gi), null);
@@ -186,7 +142,6 @@ describe('gulp-axe-webdriver', function () {
 		it('should override the rules', function (done) {
 			var options = {
 				urls: [fixtures('broken.html')],
-				browser: 'phantomjs',
 				a11yCheckOptions: {
 					'rules': {
 						'html-has-lang': { enabled: false }
@@ -204,8 +159,7 @@ describe('gulp-axe-webdriver', function () {
 	describe('detect 404 errors', function() {
 		it('should show a not valid url or resource', function (done) {
 			var options = {
-				urls: ['http://www.estaurlnoexiste.com/'],
-				browser: 'phantomjs'
+				urls: ['http://www.estaurlnoexiste.com/']
 			};
 			return axe(options, function () {
 				assert.notEqual(output.match(/File to test: http:\/\/www.estaurlnoexiste.com\//gi), null);

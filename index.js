@@ -11,15 +11,10 @@ var chalk = require('chalk');
 var request = require('then-request');
 require('chromedriver');
 
-//setup custom phantomJS capability
-var phantomjs_exe = require('phantomjs-prebuilt').path;
-var customPhantom = WebDriver.Capabilities.phantomjs();
-
 module.exports = function (customOptions, done) {
 
 	var defaultOptions = {
 		folderOutputReport: 'aXeReports',
-		browser: 'chrome',
 		showOnlyViolations: false,
 		verbose: false,
 		saveOutputIn: '',
@@ -30,16 +25,8 @@ module.exports = function (customOptions, done) {
 
 	var options = customOptions ? Object.assign(defaultOptions, customOptions) : defaultOptions;
 
-	var driver;
-
-	if(options.browser === 'phantomjs') {
-		customPhantom.set('phantomjs.binary.path', phantomjs_exe);
-		customPhantom.set('phantomjs.settings.webSecurityEnabled', false);
-		driver = new WebDriver.Builder().withCapabilities(customPhantom).build();
-	} else {
-		driver = new WebDriver.Builder().forBrowser(options.browser).build();
-		driver.manage().timeouts().setScriptTimeout(500);
-	}
+	var driver = new WebDriver.Builder().forBrowser('chrome').build();
+	driver.manage().timeouts().setScriptTimeout(500);
 
 	var tagsAreDefined = (!Array.isArray(options.tags) && options.tags !== null && options.tags !== '') || (Array.isArray(options.tags) && options.tags.length > 0);
 

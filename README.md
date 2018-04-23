@@ -6,7 +6,7 @@
 
 Inspired by [grunt-axe-webdriver](https://github.com/dequelabs/grunt-axe-webdriver) and [gulp-axe-core](https://github.com/felixzapata/gulp-axe-core).
 
-This plugin checks local and remote urls.
+This plugin checks local and remote urls, using the Chrome browser via `chromedriver`.
 
 ## Install
 
@@ -31,7 +31,7 @@ gulp.task('axe', function(done) {
 });
 ```
 
-#### With Chrome (default)
+#### With Chrome
 
 ```js
 var gulp = require('gulp');
@@ -46,22 +46,6 @@ gulp.task('axe', function(done) {
 });
 ```
 
-#### With PhantomJS
-
-```js
-var gulp = require('gulp');
-var axe = require('gulp-axe-webdriver');
-
-gulp.task('axe', function() {
-  var options = {
-    saveOutputIn: 'allHtml.json',
-    browser: 'phantomjs',
-    urls: ['src/file2.html']
-  };
-  return axe(options, done);
-});
-```
-
 #### With Glob patterns
 
 ```js
@@ -71,7 +55,6 @@ var axe = require('gulp-axe-webdriver');
 gulp.task('axe', function() {
   var options = {
     saveOutputIn: 'allHtml.json',
-    browser: 'phantomjs',
     urls: ['src/*.html', 'http://www.foobar-url-2/']
   };
   return axe(options, done);
@@ -85,7 +68,6 @@ Default value:
 ```js
 {
   threshold: 0,
-  browser: 'chrome',
   folderOutputReport: 'aXeReports',
   saveOutputIn: '',
   tags: null
@@ -96,13 +78,6 @@ Default value:
 Type: `Object`
 
 Specifies options to be used by axe.a11yCheck. Will override any other configured options. See [axe-core API documentation](https://github.com/dequelabs/axe-core/blob/master/doc/API.md) for information on its structure.
-
-#### browser
-Type: `String`
-
-Default value: `chrome`
-
-Which browser to run the tests in.
 
 #### exclude
 Type: `String`
