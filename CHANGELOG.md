@@ -1,3 +1,15 @@
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/felixzapata/gulp-axe-webdriver/compare/1.4.1...2.0.0) (2018-04-23)
+
+
+### Features
+
+* **package.json:** update axe-core to ^3.0.1 ([bec83e6](https://github.com/felixzapata/gulp-axe-webdriver/commit/bec83e6))
+* **package.json:** update axe-webdriverjs to ^2.0.0 ([cf8e76e](https://github.com/felixzapata/gulp-axe-webdriver/commit/cf8e76e))
+* **phantomjs:** remove phantomjs ([94d61e1](https://github.com/felixzapata/gulp-axe-webdriver/commit/94d61e1))
+
+
+
 <a name="1.4.1"></a>
 ## [1.4.1](https://github.com/felixzapata/gulp-axe-webdriver/compare/1.4.0...1.4.1) (2018-04-23)
 
