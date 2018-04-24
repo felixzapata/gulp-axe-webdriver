@@ -1,3 +1,13 @@
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/felixzapata/gulp-axe-webdriver/compare/2.0.0...2.1.0) (2018-04-24)
+
+
+### Features
+
+* **headless:** add support for headless mode ([7b1345b](https://github.com/felixzapata/gulp-axe-webdriver/commit/7b1345b))
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/felixzapata/gulp-axe-webdriver/compare/1.4.1...2.0.0) (2018-04-23)
 
