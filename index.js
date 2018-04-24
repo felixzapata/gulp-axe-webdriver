@@ -17,6 +17,7 @@ module.exports = function (customOptions, done) {
 		folderOutputReport: 'aXeReports',
 		showOnlyViolations: false,
 		verbose: false,
+		headless: false,
 		saveOutputIn: '',
 		tags: null,
 		urls: [],
@@ -24,11 +25,14 @@ module.exports = function (customOptions, done) {
 	};
 
 	var options = customOptions ? Object.assign(defaultOptions, customOptions) : defaultOptions;
-
-	var driver = new WebDriver.Builder().forBrowser('chrome').build();
+	var chromeCapabilities = WebDriver.Capabilities.chrome();
+	var chromeOptions = options.headless ? { 'args': ['--headless'] } : {};
+	chromeCapabilities.set('chromeOptions', chromeOptions);
+	var driver = new WebDriver.Builder().withCapabilities(chromeCapabilities).build();
 	driver.manage().timeouts().setScriptTimeout(500);
 
-	var tagsAreDefined = (!Array.isArray(options.tags) && options.tags !== null && options.tags !== '') || (Array.isArray(options.tags) && options.tags.length > 0);
+	var tagsAreDefined = (!Array.isArray(options.tags) && options.tags !== null && options.tags !== '') ||
+		(Array.isArray(options.tags) && options.tags.length > 0);
 
 	var isRemoteUrl = function (url) {
 		return url.indexOf('http://') >= 0 || url.indexOf('https://') >= 0;

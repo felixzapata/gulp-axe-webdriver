@@ -31,7 +31,20 @@ gulp.task('axe', function(done) {
 });
 ```
 
-#### With Chrome
+```js
+var gulp = require('gulp');
+var axe = require('gulp-axe-webdriver');
+
+gulp.task('axe', function(done) {
+  var options = {
+    saveOutputIn: 'allHtml.json',
+    urls: ['src/file2.html']
+  };
+  return axe(options, done);	
+});
+```
+
+#### With Headless Chrome 
 
 ```js
 var gulp = require('gulp');
@@ -40,6 +53,7 @@ var axe = require('gulp-axe-webdriver');
 gulp.task('axe', function(done) {
   var options = {
     saveOutputIn: 'allHtml.json',
+    headless: true,
     urls: ['src/file2.html']
   };
   return axe(options, done);	
@@ -86,19 +100,26 @@ Default value: `null`
 
 Add a CSS selector to the list of elements to exclude from analysis.
 
-#### include
-Type: `String`
-
-Default value: `null`
-
-Adds a CSS selector to the list of elements to include in analysis.
-
 #### folderOutputReport
 Type: `String`
 
 Default value: `aXeReports`
 
 An optional folder to indicate where the output will be saved.
+
+#### headless
+Type: `Boolean`
+
+Default value: `false`
+
+To run the Chrome browser in Headless mode.
+
+#### include
+Type: `String`
+
+Default value: `null`
+
+Adds a CSS selector to the list of elements to include in analysis.
 
 #### saveOutputIn
 Type: `String`
