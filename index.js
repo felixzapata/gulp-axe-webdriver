@@ -9,6 +9,7 @@ var fileUrl = require('file-url');
 var reporter = require('./lib/reporter');
 var chalk = require('chalk');
 var request = require('then-request');
+var PluginError = require('plugin-error');
 require('chromedriver');
 
 module.exports = function (customOptions, done) {
@@ -21,15 +22,16 @@ module.exports = function (customOptions, done) {
 		saveOutputIn: '',
 		tags: null,
 		urls: [],
-		threshold: 0
+		threshold: 0,
+		errorOnViolation: false
 	};
 
+	var violationsCount = 0;
 	var options = customOptions ? Object.assign(defaultOptions, customOptions) : defaultOptions;
 	var chromeCapabilities = WebDriver.Capabilities.chrome();
 	var chromeOptions = options.headless ? { 'args': ['--headless'] } : {};
 	chromeCapabilities.set('chromeOptions', chromeOptions);
 	var driver = new WebDriver.Builder().withCapabilities(chromeCapabilities).build();
-	
 	try {
 		driver.manage();
 		// browser is open
@@ -37,7 +39,6 @@ module.exports = function (customOptions, done) {
 		// browser is closed
 		driver.manage().timeouts().setScriptTimeout(60000);
 	}
-	
 	var tagsAreDefined = (!Array.isArray(options.tags) && options.tags !== null && options.tags !== '') ||
 		(Array.isArray(options.tags) && options.tags.length > 0);
 
@@ -110,6 +111,12 @@ module.exports = function (customOptions, done) {
 			reporter(resultsForReporter, options.threshold);
 			driver.quit().then(function () {
 				done();
+				if (options.errorOnViolation && violationsCount > 0) {
+					throw new PluginError(
+						'gulp-axe-webdriver',
+						'Encountered ' + violationsCount + ' axe violation errors'
+					);
+				}
 			});
 		});
 	};
@@ -157,6 +164,9 @@ module.exports = function (customOptions, done) {
 						results.url = url;
 						results.timestamp = new Date().getTime();
 						results.time = results.timestamp - startTimestamp;
+						if (results.violations.length > 0) {
+							++violationsCount;
+						}
 						if (options.verbose) {
 							console.log(chalk.cyan('Analyisis finished for: ') + url);
 						}
