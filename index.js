@@ -12,7 +12,7 @@ var request = require('then-request');
 var PluginError = require('plugin-error');
 require('chromedriver');
 
-module.exports = function (customOptions, done) {
+module.exports = function (customOptions) {
 
 	var defaultOptions = {
 		folderOutputReport: 'aXeReports',
@@ -95,7 +95,7 @@ module.exports = function (customOptions, done) {
 		var remoteUrls = results.filter(getRemoteUrls);
 		var promises = remoteUrls.map(checkNotValidUrls);
 		var resultsForReporter;
-		Promise.all(promises).then(function (results) {
+		return Promise.all(promises).then(function (results) {
 			resultsForReporter = localUrls.reduce(mergeArray, results);
 			if (options.showOnlyViolations) {
 				resultsForReporter = resultsForReporter.map(removePassesValues).filter(onlyViolations);
@@ -109,15 +109,13 @@ module.exports = function (customOptions, done) {
 				console.log(chalk.yellow('================='));
 			}
 			reporter(resultsForReporter, options.threshold);
-			driver.quit().then(function () {
-				done();
-				if (options.errorOnViolation && violationsCount > 0) {
-					throw new PluginError(
-						'gulp-axe-webdriver',
-						'Encountered ' + violationsCount + ' axe violation errors'
-					);
-				}
-			});
+			if (options.errorOnViolation && violationsCount > 0) {
+				throw new PluginError(
+					'gulp-axe-webdriver',
+					'Encountered ' + violationsCount + ' axe violation errors'
+				);
+			}
+			return driver.quit();
 		});
 	};
 
@@ -129,11 +127,12 @@ module.exports = function (customOptions, done) {
 
 	var urls = flatten(findGlobPatterns(options.urls));
 
+
 	if (options.verbose) {
 		console.log(chalk.yellow('Start reading the urls'));
 		console.log(chalk.yellow('======================'));
 	}
-	Promise.all(urls.map(function (url) {
+	return Promise.all(urls.map(function (url) {
 		return new Promise(function (resolve) {
 			driver
 				.get(getUrl(url))
