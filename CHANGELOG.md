@@ -2,6 +2,10 @@
 ## [2.1.1](https://github.com/felixzapata/gulp-axe-webdriver/compare/2.1.0...2.1.1) (2018-05-31)
 
 
+### Bug Fixes
+
+* **index.js:** increase timeout to 60000 ms ([68d43f1](https://github.com/felixzapata/gulp-axe-webdriver/commit/68d43f1))
+
 
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/felixzapata/gulp-axe-webdriver/compare/2.0.0...2.1.0) (2018-04-24)
