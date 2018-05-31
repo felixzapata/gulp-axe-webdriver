@@ -29,7 +29,7 @@ module.exports = function (customOptions, done) {
 	var chromeOptions = options.headless ? { 'args': ['--headless'] } : {};
 	chromeCapabilities.set('chromeOptions', chromeOptions);
 	var driver = new WebDriver.Builder().withCapabilities(chromeCapabilities).build();
-	driver.manage().timeouts().setScriptTimeout(500);
+	driver.manage().timeouts().setScriptTimeout(60000);
 
 	var tagsAreDefined = (!Array.isArray(options.tags) && options.tags !== null && options.tags !== '') ||
 		(Array.isArray(options.tags) && options.tags.length > 0);
