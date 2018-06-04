@@ -37,6 +37,7 @@
     "fs-extra": "^0.30.0",
     "fs-path": "0.0.22",
     "glob": "^7.0.6",
+    "plugin-error": "^1.0.1",
     "promise": "^7.1.1",
     "request": "^2.76.0",
     "selenium-webdriver": "^3.0.0",
