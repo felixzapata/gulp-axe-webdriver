@@ -31,7 +31,7 @@ module.exports = function (customOptions, done) {
 	var driver = new WebDriver.Builder().withCapabilities(chromeCapabilities).build();
 	
 	try {
-	  driver.getTitle();
+	  driver.manage();
 	  // browser is open
 	} catch(NoSuchSessionError) {
 	  // browser is closed
