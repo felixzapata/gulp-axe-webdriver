@@ -1,3 +1,8 @@
+<a name="2.1.2"></a>
+## [2.1.2](https://github.com/felixzapata/gulp-axe-webdriver/compare/2.1.1...2.1.2) (2018-06-19)
+
+
+
 <a name="2.1.1"></a>
 ## [2.1.1](https://github.com/felixzapata/gulp-axe-webdriver/compare/2.1.0...2.1.1) (2018-05-31)
 
