@@ -31,11 +31,11 @@ module.exports = function (customOptions, done) {
 	var driver = new WebDriver.Builder().withCapabilities(chromeCapabilities).build();
 	
 	try {
-	  driver.manage();
-	  // browser is open
+		driver.manage();
+		// browser is open
 	} catch(NoSuchSessionError) {
-	  // browser is closed
-	  driver.manage().timeouts().setScriptTimeout(60000);
+		// browser is closed
+		driver.manage().timeouts().setScriptTimeout(60000);
 	}
 	
 	var tagsAreDefined = (!Array.isArray(options.tags) && options.tags !== null && options.tags !== '') ||
