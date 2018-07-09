@@ -17,13 +17,12 @@ function fileExists(filePath) {
 }
 
 describe('gulp-axe-webdriver', function () {
-
-	var output;
-	var write = process.stdout.write;
+	let output;
+	const write = process.stdout.write;
 	this.timeout(30000);
 
 	beforeEach(function (done) {
-		var folder = path.join(__dirname, 'temp');
+		const folder = path.join(__dirname, 'temp');
 		output = '';
 		process.stdout.write = function (str) {
 			output += str;
@@ -36,25 +35,22 @@ describe('gulp-axe-webdriver', function () {
 	});
 
 	describe('using Chrome', function () {
-
 		it('should pass the a11y validation', function (done) {
-			var options = {
+			const options = {
 				urls: [fixtures('working.html')]
 			};
-			return axe(options, function () {
+			axe(options, function () {
 				assert.notEqual(output.match(/Found no accessibility violations./gi), null);
 				assert.notEqual(output.match(/(File to test|test\/fixtures\/working.html)/gi), null);
 				done();
 			});
-
 		});
 
-
 		it('should not pass the a11y validation', function (done) {
-			var options = {
+			const options = {
 				urls: [fixtures('broken.html')]
 			};
-			return axe(options, function () {
+			axe(options, function () {
 				assert.notEqual(output.match(/Found 3 accessibility violations/gi), null);
 				assert.notEqual(output.match(/(File to test|test\/fixtures\/broken.html)/gi), null);
 				done();
@@ -62,13 +58,13 @@ describe('gulp-axe-webdriver', function () {
 		});
 
 		it('should create JSON file with the results', function (done) {
-			var options = {
+			const options = {
 				saveOutputIn: 'allHtml.json',
 				folderOutputReport: path.join(__dirname, 'temp'),
 				urls: [fixtures('broken.html')]
 			};
-			var expected = path.join(__dirname, 'temp', 'allHtml.json');
-			return axe(options, function () {
+			const expected = path.join(__dirname, 'temp', 'allHtml.json');
+			axe(options, function () {
 				assert(fileExists(expected), true);
 				done();
 			});
@@ -77,11 +73,11 @@ describe('gulp-axe-webdriver', function () {
 
 	describe('using CSS selector', function () {
 		it('should use add a CSS selector to the list of elements to include in analysis', function (done) {
-			var options = {
+			const options = {
 				urls: [fixtures('broken.html')],
 				include: 'img'
 			};
-			return axe(options, function () {
+			axe(options, function () {
 				assert.notEqual(output.match(/Found 1 accessibility violations/gi), null);
 				assert.notEqual(output.match(/(File to test|test\/fixtures\/broken.html)/gi), null);
 				done();
@@ -89,11 +85,11 @@ describe('gulp-axe-webdriver', function () {
 		});
 
 		it('should use add a CSS selector to the list of elements to exclude in analysis', function (done) {
-			var options = {
+			const options = {
 				urls: [fixtures('broken.html')],
 				exclude: '#no-label'
 			};
-			return axe(options, function () {
+			axe(options, function () {
 				assert.notEqual(output.match(/Found 2 accessibility violations/gi), null);
 				assert.notEqual(output.match(/(File to test|test\/fixtures\/broken.html)/gi), null);
 				done();
@@ -104,15 +100,15 @@ describe('gulp-axe-webdriver', function () {
 
 	describe('using showOnlyViolations option', function () {
 		it('should only returns the violations', function (done) {
-			var options = {
+			const options = {
 				urls: [fixtures('broken.html', 'working.html')],
 				saveOutputIn: 'allHtml.json',
 				showOnlyViolations: true,
 				folderOutputReport: path.join(__dirname, 'temp')
 			};
-			var expected = path.join(__dirname, 'temp', 'allHtml.json');
-			var results;
-			return axe(options, function () {
+			const expected = path.join(__dirname, 'temp', 'allHtml.json');
+			let results;
+			axe(options, function () {
 				results = JSON.parse(fs.readFileSync(expected, 'utf8'));
 				assert.equal(results.length, 1);
 				assert.equal(results[0].passes, null);
@@ -124,11 +120,11 @@ describe('gulp-axe-webdriver', function () {
 
 	describe('using verbose option', function () {
 		it('should show information messages about the analysis', function (done) {
-			var options = {
+			const options = {
 				urls: [fixtures('working.html')],
 				verbose: true
 			};
-			return axe(options, function () {
+			axe(options, function () {
 				assert.notEqual(output.match(/Preparing results/gi), null);
 				assert.notEqual(output.match(/Start reading the urls/gi), null);
 				assert.notEqual(output.match(/Analysis start for: /gi), null);
@@ -140,7 +136,7 @@ describe('gulp-axe-webdriver', function () {
 
 	describe('using a11yCheckOptions', function () {
 		it('should override the rules', function (done) {
-			var options = {
+			const options = {
 				urls: [fixtures('broken.html')],
 				a11yCheckOptions: {
 					'rules': {
@@ -148,7 +144,7 @@ describe('gulp-axe-webdriver', function () {
 					}
 				}
 			};
-			return axe(options, function () {
+			axe(options, function () {
 				assert.notEqual(output.match(/Found 2 accessibility violations/gi), null);
 				assert.equal(output.match(/<html> element must have a lang attribute/gi), null);
 				done();
@@ -158,10 +154,10 @@ describe('gulp-axe-webdriver', function () {
 
 	describe('detect 404 errors', function() {
 		it('should show a not valid url or resource', function (done) {
-			var options = {
+			const options = {
 				urls: ['http://www.estaurlnoexiste.com/']
 			};
-			return axe(options, function () {
+			axe(options, function () {
 				assert.notEqual(output.match(/File to test: http:\/\/www.estaurlnoexiste.com\//gi), null);
 				assert.notEqual(output.match(/URL not valid for analysis/gi), null);
 				done();
