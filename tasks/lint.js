@@ -1,6 +1,6 @@
 'use strict';
-var gulp = require('gulp');
-var $ = require('gulp-load-plugins')();
+const gulp = require('gulp');
+const $ = require('gulp-load-plugins')();
 
 // Lint JavaScript
 gulp.task('lint', function() {
