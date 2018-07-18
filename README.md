@@ -93,6 +93,13 @@ Type: `Object`
 
 Specifies options to be used by axe.a11yCheck. Will override any other configured options. See [axe-core API documentation](https://github.com/dequelabs/axe-core/blob/master/doc/API.md) for information on its structure.
 
+#### errorOnViolation
+Type: `Boolean`
+
+Default value: `false`
+
+It throws an error on violation from aXe,  useful for CI environments if you want to break the build if any new violations are in your results.
+
 #### exclude
 Type: `String`
 
@@ -165,13 +172,6 @@ Type: `Boolean`
 Default value: `false`
 
 Show status of the analysis.
-
-#### errorOnViolation
-Type: `Boolean`
-
-Default value: `false`
-
-It throws an error on violation from aXe,  useful for CI environments if you want to break the build if any new violations are in your results.
 
 ## Release History
 
