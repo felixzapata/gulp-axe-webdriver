@@ -22,12 +22,12 @@ $ npm install --save-dev gulp-axe-webdriver
 var gulp = require('gulp');
 var axe = require('gulp-axe-webdriver');
 
-gulp.task('axe', function(done) {
+gulp.task('axe', function() {
   var options = {
     saveOutputIn: 'allHtml.json',
     urls: ['http://www.foobar-url-1/', 'http://www.foobar-url-2/']
   };
-  return axe(options, done);
+  return axe(options);
 });
 ```
 
@@ -35,12 +35,12 @@ gulp.task('axe', function(done) {
 var gulp = require('gulp');
 var axe = require('gulp-axe-webdriver');
 
-gulp.task('axe', function(done) {
+gulp.task('axe', function() {
   var options = {
     saveOutputIn: 'allHtml.json',
     urls: ['src/file2.html']
   };
-  return axe(options, done);	
+  return axe(options);	
 });
 ```
 
@@ -50,13 +50,13 @@ gulp.task('axe', function(done) {
 var gulp = require('gulp');
 var axe = require('gulp-axe-webdriver');
 
-gulp.task('axe', function(done) {
+gulp.task('axe', function() {
   var options = {
     saveOutputIn: 'allHtml.json',
     headless: true,
     urls: ['src/file2.html']
   };
-  return axe(options, done);	
+  return axe(options);	
 });
 ```
 
@@ -71,7 +71,7 @@ gulp.task('axe', function() {
     saveOutputIn: 'allHtml.json',
     urls: ['src/*.html', 'http://www.foobar-url-2/']
   };
-  return axe(options, done);
+  return axe(options);
 });
 ```
 
@@ -165,6 +165,13 @@ Type: `Boolean`
 Default value: `false`
 
 Show status of the analysis.
+
+#### errorOnViolation
+Type: `Boolean`
+
+Default value: `false`
+
+It throws an error on violation from aXe,  useful for CI environments if you want to break the build if any new violations are in your results.
 
 ## Release History
 
