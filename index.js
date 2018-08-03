@@ -33,8 +33,8 @@ module.exports = function (customOptions) {
 	var chromeOptions = options.headless ? { 'args': ['--headless'] } : {};
 	chromeCapabilities.set('chromeOptions', chromeOptions);
 	var driver = new WebDriver.Builder().withCapabilities(chromeCapabilities).build();
-	if (typeof defaultOptions.scriptTimeout === 'number') {
-		driver.manage().timeouts().setScriptTimeout(defaultOptions.scriptTimeout);
+	if (typeof options.scriptTimeout === 'number') {
+		driver.manage().timeouts().setScriptTimeout(options.scriptTimeout);
 	}
 	var tagsAreDefined = (!Array.isArray(options.tags) && options.tags !== null && options.tags !== '') ||
 		(Array.isArray(options.tags) && options.tags.length > 0);
