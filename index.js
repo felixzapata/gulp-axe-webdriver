@@ -127,7 +127,6 @@ module.exports = function (customOptions) {
 
 	var urls = flatten(findGlobPatterns(options.urls));
 
-
 	if (options.verbose) {
 		console.log(chalk.yellow('Start reading the urls'));
 		console.log(chalk.yellow('======================'));
@@ -159,7 +158,7 @@ module.exports = function (customOptions) {
 						axeBuilder.options(options.a11yCheckOptions);
 					}
 
-					axeBuilder.analyze(function (results) {
+					return axeBuilder.analyze(function (results) {
 						results.url = url;
 						results.timestamp = new Date().getTime();
 						results.time = results.timestamp - startTimestamp;
