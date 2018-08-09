@@ -1,3 +1,13 @@
+<a name="3.0.1"></a>
+## [3.0.1](https://github.com/felixzapata/gulp-axe-webdriver/compare/3.0.0...3.0.1) (2018-08-09)
+
+
+### Bug Fixes
+
+* **index.js:** return promise with axeBuilder ([20c18ed](https://github.com/felixzapata/gulp-axe-webdriver/commit/20c18ed))
+
+
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/felixzapata/gulp-axe-webdriver/compare/2.1.2...3.0.0) (2018-07-18)
 
