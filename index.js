@@ -164,7 +164,7 @@ module.exports = function (customOptions) {
 							++violationsCount;
 						}
 						if (options.verbose) {
-							console.log(chalk.cyan('Analyisis finished for: ') + url);
+							console.log(chalk.cyan('Analysis finished for: ') + url);
 						}
 						resolve(results);
 					});
