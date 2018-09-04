@@ -19,7 +19,7 @@ module.exports = function (customOptions) {
 		folderOutputReport: 'aXeReports',
 		headless: false,
 		saveOutputIn: '',
-		scriptTimeout: null,
+		scriptTimeout: 60000,
 		showOnlyViolations: false,
 		tags: null,
 		threshold: 0,
