@@ -15,15 +15,16 @@ require('chromedriver');
 module.exports = function (customOptions) {
 
 	var defaultOptions = {
+		errorOnViolation: false,
 		folderOutputReport: 'aXeReports',
-		showOnlyViolations: false,
-		verbose: false,
 		headless: false,
 		saveOutputIn: '',
+		scriptTimeout: 60000,
+		showOnlyViolations: false,
 		tags: null,
-		urls: [],
 		threshold: 0,
-		errorOnViolation: false
+		urls: [],
+		verbose: false
 	};
 
 	var violationsCount = 0;
@@ -32,12 +33,8 @@ module.exports = function (customOptions) {
 	var chromeOptions = options.headless ? { 'args': ['--headless'] } : {};
 	chromeCapabilities.set('chromeOptions', chromeOptions);
 	var driver = new WebDriver.Builder().withCapabilities(chromeCapabilities).build();
-	try {
-		driver.manage();
-		// browser is open
-	} catch(NoSuchSessionError) {
-		// browser is closed
-		driver.manage().timeouts().setScriptTimeout(60000);
+	if (typeof options.scriptTimeout === 'number') {
+		driver.manage().timeouts().setScriptTimeout(options.scriptTimeout);
 	}
 	var tagsAreDefined = (!Array.isArray(options.tags) && options.tags !== null && options.tags !== '') ||
 		(Array.isArray(options.tags) && options.tags.length > 0);
@@ -166,7 +163,7 @@ module.exports = function (customOptions) {
 							++violationsCount;
 						}
 						if (options.verbose) {
-							console.log(chalk.cyan('Analyisis finished for: ') + url);
+							console.log(chalk.cyan('Analysis finished for: ') + url);
 						}
 						resolve(results);
 					});

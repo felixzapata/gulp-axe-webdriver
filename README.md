@@ -81,10 +81,16 @@ Type: `Object`
 Default value:
 ```js
 {
-  threshold: 0,
+  errorOnViolation: false,
   folderOutputReport: 'aXeReports',
+  headless: false,
   saveOutputIn: '',
-  tags: null
+  scriptTimeout: 60000,
+  showOnlyViolations: false,
+  tags: null,
+  threshold: 0,
+  urls: [],
+  verbose: false
 }
 ```
 
@@ -134,6 +140,13 @@ Type: `String`
 Default value: ''
 
 An optional file to which the results of the accessibility scans will be written as a JSON Array of results objects.
+
+#### scriptTimeout
+Type: `Number`
+
+Default value: `60000`
+
+Number of milliseconds for WebDriver to wait before timing out an injected script.
 
 #### showOnlyViolations
 Type: `Boolean`
