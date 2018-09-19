@@ -1,3 +1,13 @@
+<a name="3.1.0"></a>
+# [3.1.0](https://github.com/felixzapata/gulp-axe-webdriver/compare/3.0.1...3.1.0) (2018-09-19)
+
+
+### Features
+
+* **scriptTimeout:** add scriptTimeout option ([5cc450c](https://github.com/felixzapata/gulp-axe-webdriver/commit/5cc450c)), closes [#18](https://github.com/felixzapata/gulp-axe-webdriver/issues/18)
+
+
+
 <a name="3.0.1"></a>
 ## [3.0.1](https://github.com/felixzapata/gulp-axe-webdriver/compare/3.0.0...3.0.1) (2018-08-09)
 
