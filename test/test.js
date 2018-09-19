@@ -126,7 +126,7 @@ describe('gulp-axe-webdriver', function () {
 				assert.notEqual(output.match(/Preparing results/gi), null);
 				assert.notEqual(output.match(/Start reading the urls/gi), null);
 				assert.notEqual(output.match(/Analysis start for: /gi), null);
-				assert.notEqual(output.match(/Analyisis finished for: /gi), null);
+				assert.notEqual(output.match(/Analysis finished for: /gi), null);
 			});
 		});
 	});
