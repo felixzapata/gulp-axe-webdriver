@@ -155,7 +155,7 @@ module.exports = function (customOptions) {
 						axeBuilder.options(options.a11yCheckOptions);
 					}
 
-					return axeBuilder.analyze(err, function (results) {
+					return axeBuilder.analyze(function (err, results) {
 						if (err) {
 							console.log(err);
 						}
