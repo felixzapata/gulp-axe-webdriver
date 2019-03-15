@@ -1,3 +1,13 @@
+<a name="3.1.1"></a>
+## [3.1.1](https://github.com/felixzapata/gulp-axe-webdriver/compare/3.1.0...3.1.1) (2019-03-15)
+
+
+### Bug Fixes
+
+* **index.js:** remove deprecated warning ([#22](https://github.com/felixzapata/gulp-axe-webdriver/issues/22)) ([23a4bcc](https://github.com/felixzapata/gulp-axe-webdriver/commit/23a4bcc))
+
+
+
 <a name="3.1.0"></a>
 # [3.1.0](https://github.com/felixzapata/gulp-axe-webdriver/compare/3.0.1...3.1.0) (2018-09-19)
 
