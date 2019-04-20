@@ -1,3 +1,13 @@
+<a name="3.1.2"></a>
+## [3.1.2](https://github.com/felixzapata/gulp-axe-webdriver/compare/3.1.1...3.1.2) (2019-04-20)
+
+
+### Bug Fixes
+
+* **packages:** update dependencies ([f701836](https://github.com/felixzapata/gulp-axe-webdriver/commit/f701836))
+
+
+
 <a name="3.1.1"></a>
 ## [3.1.1](https://github.com/felixzapata/gulp-axe-webdriver/compare/3.1.0...3.1.1) (2019-03-15)
 
