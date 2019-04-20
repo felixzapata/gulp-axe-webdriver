@@ -7,7 +7,7 @@
   "author": {
     "name": "Felix Zapata",
     "email": "fzberlinches@gmail.com",
-    "url": "github.com/felixzapata"
+    "url": "https://github.com/felixzapata/"
   },
   "engines": {
     "node": ">=0.10.0"
@@ -35,8 +35,9 @@
     "chromedriver": "2.41.0",
     "file-url": "^1.1.0",
     "fs-extra": "^0.30.0",
-    "fs-path": "0.0.22",
+    "fs-path": "0.0.24",
     "glob": "^7.0.6",
+    "natives": "^1.1.6",
     "plugin-error": "^1.0.1",
     "promise": "^7.1.1",
     "request": "^2.76.0",
