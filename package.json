@@ -35,7 +35,6 @@
     "chromedriver": "2.41.0",
     "file-url": "^1.1.0",
     "fs-extra": "^0.30.0",
-    "fs-path": "0.0.24",
     "glob": "^7.0.6",
     "natives": "^1.1.6",
     "plugin-error": "^1.0.1",
