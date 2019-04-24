@@ -1,6 +1,6 @@
 'use strict';
 var path = require('path');
-var fs = require('fs-path');
+var fs = require('fs');
 var glob = require('glob');
 var AxeBuilder = require('axe-webdriverjs');
 var WebDriver = require('selenium-webdriver');
@@ -99,6 +99,9 @@ module.exports = function (customOptions) {
 			}
 			if (options.saveOutputIn !== '') {
 				dest = path.join(options.folderOutputReport, options.saveOutputIn);
+				if(!fs.existsSync(options.folderOutputReport)) {
+					fs.mkdirSync(options.folderOutputReport);
+				}
 				fs.writeFileSync(dest, JSON.stringify(resultsForReporter, null, '  '));
 			}
 			if (options.verbose) {
