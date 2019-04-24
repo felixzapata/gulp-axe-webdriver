@@ -1,3 +1,14 @@
+<a name="3.1.3"></a>
+## [3.1.3](https://github.com/felixzapata/gulp-axe-webdriver/compare/3.1.2...3.1.3) (2019-04-24)
+
+
+### Features
+
+* **index.js:** remove import fs-path ([3ca751c](https://github.com/felixzapata/gulp-axe-webdriver/commit/3ca751c))
+* **package.json:** remove fs-path package ([d2b24a5](https://github.com/felixzapata/gulp-axe-webdriver/commit/d2b24a5))
+
+
+
 <a name="3.1.2"></a>
 ## [3.1.2](https://github.com/felixzapata/gulp-axe-webdriver/compare/3.1.1...3.1.2) (2019-04-20)
 
